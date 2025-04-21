@@ -1,122 +1,150 @@
-.weather-card {
-    background: var(--background-card);
-    border-radius: var(--border-radius-lg);
-    padding: var(--spacing-lg);
-    text-align: center;
-    box-shadow: var(--shadow-card);
-    margin: var(--spacing-xl) auto;
-    max-width: 400px;
+/* 전역 스타일 */
+html, body {
     width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
     box-sizing: border-box;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.app {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid var(--border-light);
+    justify-content: center;
+    background: var(--background-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: var(--spacing-md);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-md);
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.weather-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 .weather-icon {
     width: 80px;
     height: 80px;
     margin-bottom: var(--spacing-md);
-    border-radius: var(--border-radius-md);
 }
 
 .city {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
     color: var(--text-primary);
     margin-bottom: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--background-card);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-card);
+    text-align: center;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .temperature {
     font-size: 2.5rem;
     font-weight: bold;
     color: var(--text-primary);
-    margin: var(--spacing-sm) 0;
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--background-card);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-card);
+    margin-bottom: var(--spacing-sm);
+    width: 100%;
+    text-align: center;
+    overflow-x: hidden;
 }
 
 .sky {
     font-size: 1.2rem;
     color: var(--text-secondary);
-    margin-top: var(--spacing-sm);
     text-transform: capitalize;
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--background-card);
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-card);
+    margin-bottom: var(--spacing-md);
+    width: 100%;
+    text-align: center;
+    overflow-x: hidden;
 }
 
 /* 태블릿 스타일 */
 @media (min-width: 768px) {
+    .app {
+        padding: var(--spacing-lg);
+    }
+
+    .container {
+        padding: var(--spacing-lg);
+    }
+
     .weather-card {
         padding: var(--spacing-xl);
-        margin: var(--spacing-xl) auto;
     }
 
     .weather-icon {
-        width: 100px;
-        height: 100px;
-        margin-bottom: var(--spacing-lg);
+        width: 90px;
+        height: 90px;
     }
 
     .city {
-        font-size: 1.8rem;
-        margin-bottom: var(--spacing-md);
-        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: 2rem;
     }
 
     .temperature {
-        font-size: 3rem;
-        margin: var(--spacing-md) 0;
-        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: 2.8rem;
     }
 
     .sky {
         font-size: 1.4rem;
-        margin-top: var(--spacing-md);
-        padding: var(--spacing-md) var(--spacing-lg);
     }
 }
 
 /* 데스크톱 스타일 */
 @media (min-width: 1024px) {
-    .weather-card {
+    .app {
         padding: var(--spacing-xl);
-        margin: var(--spacing-xl) auto;
+    }
+
+    .container {
+        padding: var(--spacing-xl);
+    }
+
+    .weather-card {
+        padding: var(--spacing-xxl);
     }
 
     .weather-icon {
-        width: 120px;
-        height: 120px;
-        margin-bottom: var(--spacing-xl);
+        width: 100px;
+        height: 100px;
     }
 
     .city {
-        font-size: 2rem;
-        margin-bottom: var(--spacing-lg);
-        padding: var(--spacing-lg) var(--spacing-xl);
+        font-size: 2.2rem;
     }
 
     .temperature {
-        font-size: 3.5rem;
-        margin: var(--spacing-lg) 0;
-        padding: var(--spacing-lg) var(--spacing-xl);
+        font-size: 3rem;
     }
 
     .sky {
         font-size: 1.6rem;
-        margin-top: var(--spacing-lg);
-        padding: var(--spacing-lg) var(--spacing-xl);
     }
 } 
