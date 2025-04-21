@@ -1,0 +1,122 @@
+.weather-card {
+    background: var(--background-card);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    margin: var(--spacing-xl) auto;
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--border-light);
+}
+
+.weather-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+}
+
+.city {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--background-card);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-card);
+}
+
+.temperature {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin: var(--spacing-sm) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--background-card);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-card);
+}
+
+.sky {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-top: var(--spacing-sm);
+    text-transform: capitalize;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--background-card);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-card);
+}
+
+/* 태블릿 스타일 */
+@media (min-width: 768px) {
+    .weather-card {
+        padding: var(--spacing-xl);
+        margin: var(--spacing-xl) auto;
+    }
+
+    .weather-icon {
+        width: 100px;
+        height: 100px;
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .city {
+        font-size: 1.8rem;
+        margin-bottom: var(--spacing-md);
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    .temperature {
+        font-size: 3rem;
+        margin: var(--spacing-md) 0;
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    .sky {
+        font-size: 1.4rem;
+        margin-top: var(--spacing-md);
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+}
+
+/* 데스크톱 스타일 */
+@media (min-width: 1024px) {
+    .weather-card {
+        padding: var(--spacing-xl);
+        margin: var(--spacing-xl) auto;
+    }
+
+    .weather-icon {
+        width: 120px;
+        height: 120px;
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .city {
+        font-size: 2rem;
+        margin-bottom: var(--spacing-lg);
+        padding: var(--spacing-lg) var(--spacing-xl);
+    }
+
+    .temperature {
+        font-size: 3.5rem;
+        margin: var(--spacing-lg) 0;
+        padding: var(--spacing-lg) var(--spacing-xl);
+    }
+
+    .sky {
+        font-size: 1.6rem;
+        margin-top: var(--spacing-lg);
+        padding: var(--spacing-lg) var(--spacing-xl);
+    }
+} 

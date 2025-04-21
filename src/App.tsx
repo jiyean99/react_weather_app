@@ -15,6 +15,8 @@ import {
 import {darkTheme, lightTheme} from "./theme/theme.ts";
 import {ThemeProvider} from "styled-components";
 import WeatherSlider from "./components/WeatherSlider.tsx";
+import styles from './App.module.css';
+import Settings from './components/Settings';
 
 interface WeatherData {
   name: string;
@@ -23,6 +25,7 @@ interface WeatherData {
   };
   weather: {
     main: string;
+    icon: string;
   }[];
 }
 
@@ -102,8 +105,26 @@ function App() {
           "(prefers-color-scheme: dark)"
       ).matches;
       setIsDarkMode(systemPrefersDark);
+      document.documentElement.style.setProperty('--background-main', systemPrefersDark ? '#242424' : '#FFFFFF');
+      document.documentElement.style.setProperty('--text-primary', systemPrefersDark ? 'rgba(255, 255, 255, 0.87)' : '#333333');
+      document.documentElement.style.setProperty('--text-secondary', systemPrefersDark ? 'rgba(255, 255, 255, 0.6)' : '#666666');
+      document.documentElement.style.setProperty('--border-light', systemPrefersDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)');
+      document.documentElement.style.setProperty('--shadow-card', systemPrefersDark ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '0 4px 6px rgba(0, 0, 0, 0.1)');
     } else {
       setIsDarkMode(themeMode === "dark");
+      if (themeMode === "dark") {
+        document.documentElement.style.setProperty('--background-main', '#242424');
+        document.documentElement.style.setProperty('--text-primary', 'rgba(255, 255, 255, 0.87)');
+        document.documentElement.style.setProperty('--text-secondary', 'rgba(255, 255, 255, 0.6)');
+        document.documentElement.style.setProperty('--border-light', 'rgba(255, 255, 255, 0.1)');
+        document.documentElement.style.setProperty('--shadow-card', '0 4px 6px rgba(0, 0, 0, 0.3)');
+      } else {
+        document.documentElement.style.setProperty('--background-main', '#FFFFFF');
+        document.documentElement.style.setProperty('--text-primary', '#333333');
+        document.documentElement.style.setProperty('--text-secondary', '#666666');
+        document.documentElement.style.setProperty('--border-light', 'rgba(0, 0, 0, 0.1)');
+        document.documentElement.style.setProperty('--shadow-card', '0 4px 6px rgba(0, 0, 0, 0.1)');
+      }
     }
   }, [themeMode]);
 
@@ -114,13 +135,14 @@ function App() {
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
       <AppWrapper className="appContentWrap">
+        <Settings themeMode={themeMode} onThemeChange={setThemeMode} />
         <InputWrap>
           <Input
               placeholder="도시를 입력하세요"
               value={location}
-              onChange={(e) => setLocation(e.target.value)} // 사용자 입력 업데이트
+              onChange={(e) => setLocation(e.target.value)}
               type="text"
-              onKeyDown={handleKeyDown} // Enter 키로 날씨 검색
+              onKeyDown={handleKeyDown}
           />
           {location && (
             <button className="input-btn" onClick={fetchWeatherData}>검색</button>
@@ -129,50 +151,21 @@ function App() {
         <Button onClick={fetchWeatherByLocation}>현재 위치의 날씨</Button>
         {result && (
             <Fragment>
-              <WeatherCard>
-                <City className="city">{result.name}</City>
-                <Temperature className="temperature">
-                  {Math.round((result.main.temp - 273.15) * 10) / 10}℃ {/* 켈빈 → 섭씨 변환 */}
-                </Temperature>
-                <Sky className="sky">{result.weather[0].main}</Sky>
-              </WeatherCard>
+              <div className={styles['weather-card']}>
+                <img 
+                  src={`https://openweathermap.org/img/wn/${result.weather[0].icon}@2x.png`}
+                  alt={result.weather[0].main}
+                  className={styles['weather-icon']}
+                />
+                <div className={styles['city']}>{result.name}</div>
+                <div className={styles['temperature']}>
+                  {Math.round((result.main.temp - 273.15) * 10) / 10}℃
+                </div>
+                <div className={styles['sky']}>{result.weather[0].main}</div>
+              </div>
               <WeatherSlider/>
             </Fragment>
         )}
-        <RadioGroup>
-          <RadioOption>
-            <input
-                type="radio"
-                id="system"
-                name="theme"
-                value="system"
-                checked={themeMode === "system"}
-                onChange={handleThemeChange}
-            />
-            <label htmlFor="system">System Mode</label>
-
-            <input
-                type="radio"
-                id="light"
-                name="theme"
-                value="light"
-                checked={themeMode === "light"}
-                onChange={handleThemeChange}
-            />
-            <label htmlFor="light">Light Mode</label>
-          </RadioOption>
-          <RadioOption>
-            <input
-                type="radio"
-                id="dark"
-                name="theme"
-                value="dark"
-                checked={themeMode === "dark"}
-                onChange={handleThemeChange}
-            />
-            <label htmlFor="dark">Dark Mode</label>
-          </RadioOption>
-        </RadioGroup>
       </AppWrapper>
     </ThemeProvider>
   );

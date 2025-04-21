@@ -2,19 +2,45 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Spacing variables */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Border radius variables */
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 20px;
+
+  /* Light theme variables */
+  --background-main: #FFFFFF;
+  --background-card: rgba(255, 255, 255, 0.8);
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --border-light: rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-main: #242424;
+    --background-card: rgba(30, 30, 30, 0.8);
+    --text-primary: rgba(255, 255, 255, 0.87);
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    --border-light: rgba(255, 255, 255, 0.1);
+    --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
 }
 
 * {
-  transition: .3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 body {
@@ -23,4 +49,6 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--background-main);
+  color: var(--text-primary);
 }

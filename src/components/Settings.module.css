@@ -1,0 +1,125 @@
+.settings {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    z-index: 1000;
+}
+
+.settingsButton {
+    background: var(--background-card);
+    border: 1px solid var(--border-light);
+    border-radius: 50%;
+    padding: var(--spacing-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-card);
+    width: 40px;
+    height: 40px;
+}
+
+.settingsButton:hover {
+    transform: rotate(30deg);
+    background: var(--background-card);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.gearIcon {
+    width: 24px;
+    height: 24px;
+    color: var(--text-primary);
+}
+
+.popup {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: var(--background-card);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-light);
+    min-width: 200px;
+    animation: slideIn 0.3s ease;
+    z-index: 1001;
+}
+
+.popupContent {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.popupTitle {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    margin: 0 0 var(--spacing-md) 0;
+    text-align: center;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 태블릿 스타일 */
+@media (min-width: 768px) {
+    .settings {
+        top: var(--spacing-lg);
+        right: var(--spacing-lg);
+    }
+
+    .settingsButton {
+        padding: var(--spacing-md);
+        width: 48px;
+        height: 48px;
+    }
+
+    .gearIcon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .popup {
+        min-width: 250px;
+    }
+
+    .popupTitle {
+        font-size: 1.4rem;
+    }
+}
+
+/* 데스크톱 스타일 */
+@media (min-width: 1024px) {
+    .settings {
+        top: var(--spacing-xl);
+        right: var(--spacing-xl);
+    }
+
+    .settingsButton {
+        padding: var(--spacing-lg);
+        width: 56px;
+        height: 56px;
+    }
+
+    .gearIcon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .popup {
+        min-width: 300px;
+    }
+
+    .popupTitle {
+        font-size: 1.6rem;
+    }
+} 
