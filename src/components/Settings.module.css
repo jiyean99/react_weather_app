@@ -1,68 +1,52 @@
 .settings {
-    position: absolute;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
     z-index: 1000;
 }
 
 .settingsButton {
-    background: var(--background-card);
-    border: 1px solid var(--border-light);
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    padding: var(--spacing-sm);
-    cursor: pointer;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: var(--shadow-card);
-    width: 40px;
-    height: 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .settingsButton:hover {
-    transform: rotate(30deg);
-    background: var(--background-card);
+    transform: rotate(90deg);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .gearIcon {
-    width: 24px;
-    height: 24px;
-    color: var(--text-primary);
+    width: 20px;
+    height: 20px;
+    color: var(--text-color);
 }
 
-.popup {
-    position: absolute;
-    top: 50px;
-    right: 0;
-    background: var(--background-card);
-    border-radius: var(--border-radius-lg);
-    padding: var(--spacing-lg);
-    box-shadow: var(--shadow-card);
-    border: 1px solid var(--border-light);
-    min-width: 200px;
-    animation: slideIn 0.3s ease;
+.settingsPopup {
+    position: fixed;
+    top: 4rem;
+    right: 1rem;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     z-index: 1001;
+    animation: slideDown 0.3s ease;
 }
 
-.popupContent {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-}
-
-.popupTitle {
-    color: var(--text-primary);
-    font-size: 1.2rem;
-    margin: 0 0 var(--spacing-md) 0;
-    text-align: center;
-}
-
-@keyframes slideIn {
+@keyframes slideDown {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(-10px);
     }
     to {
         opacity: 1;
@@ -70,17 +54,128 @@
     }
 }
 
-/* 태블릿 스타일 */
-@media (min-width: 768px) {
-    .settings {
-        top: var(--spacing-lg);
-        right: var(--spacing-lg);
-    }
+.themeOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
 
+.themeOption {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.themeOption:hover {
+    background-color: var(--hover-color);
+}
+
+.themeOption input[type="radio"] {
+    margin: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    outline: none;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.themeOption input[type="radio"]:checked {
+    border-color: #2196F3;
+    background-color: #2196F3;
+}
+
+.themeOption input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--background-color);
+}
+
+.themeOption input[type="radio"]:hover {
+    border-color: #2196F3;
+}
+
+.themeOption label {
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* 테마 변수 */
+.light-theme {
+    --background-color: #ffffff;
+    --text-color: #333333;
+    --border-color: #e0e0e0;
+    --hover-color: #f5f5f5;
+}
+
+.dark-theme {
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --border-color: #333333;
+    --hover-color: #2a2a2a;
+}
+
+.system-theme {
+    --background-color: #ffffff;
+    --text-color: #333333;
+    --border-color: #e0e0e0;
+    --hover-color: #f5f5f5;
+}
+
+@media (prefers-color-scheme: dark) {
+    .system-theme {
+        --background-color: #1a1a1a;
+        --text-color: #ffffff;
+        --border-color: #333333;
+        --hover-color: #2a2a2a;
+    }
+}
+
+@media (min-width: 768px) {
     .settingsButton {
-        padding: var(--spacing-md);
         width: 48px;
         height: 48px;
+    }
+
+    .gearIcon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .themeOption input[type="radio"] {
+        width: 18px;
+        height: 18px;
+    }
+
+    .themeOption input[type="radio"]:checked::after {
+        width: 8px;
+        height: 8px;
+    }
+
+    .themeOption label {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .settingsButton {
+        width: 56px;
+        height: 56px;
     }
 
     .gearIcon {
@@ -88,38 +183,17 @@
         height: 28px;
     }
 
-    .popup {
-        min-width: 250px;
+    .themeOption input[type="radio"] {
+        width: 20px;
+        height: 20px;
     }
 
-    .popupTitle {
-        font-size: 1.4rem;
-    }
-}
-
-/* 데스크톱 스타일 */
-@media (min-width: 1024px) {
-    .settings {
-        top: var(--spacing-xl);
-        right: var(--spacing-xl);
+    .themeOption input[type="radio"]:checked::after {
+        width: 10px;
+        height: 10px;
     }
 
-    .settingsButton {
-        padding: var(--spacing-lg);
-        width: 56px;
-        height: 56px;
-    }
-
-    .gearIcon {
-        width: 32px;
-        height: 32px;
-    }
-
-    .popup {
-        min-width: 300px;
-    }
-
-    .popupTitle {
-        font-size: 1.6rem;
+    .themeOption label {
+        font-size: 1.1rem;
     }
 } 

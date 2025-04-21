@@ -153,7 +153,7 @@ function App() {
                 </div>
                 <div className={styles['sky']}>{result.weather[0].main}</div>
               </div>
-              <WeatherSlider/>
+              <WeatherSlider theme={isDarkMode ? "dark" : "light"}/>
             </Fragment>
         )}
       </AppWrapper>

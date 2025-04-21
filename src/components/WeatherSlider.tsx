@@ -17,7 +17,11 @@ interface GroupedWeatherData {
     forecasts: WeatherData[];
 }
 
-const WeatherSlider = () => {
+interface WeatherSliderProps {
+    theme: "light" | "dark";
+}
+
+const WeatherSlider: React.FC<WeatherSliderProps> = ({ theme }) => {
     const [weatherData, setWeatherData] = useState<GroupedWeatherData[]>([]);
 
     useEffect(() => {
@@ -80,7 +84,7 @@ const WeatherSlider = () => {
     }, []);
 
     return (
-        <div className={styles['slider-container']}>
+        <div className={`${styles['slider-container']} ${theme === 'dark' ? styles['dark-theme'] : styles['light-theme']}`}>
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={30}

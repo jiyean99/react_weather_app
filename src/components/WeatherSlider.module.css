@@ -1,230 +1,116 @@
 .slider-container {
     width: 100%;
-    max-width: 80vw;
-    margin: var(--spacing-xl) auto;
-    padding: 0 var(--spacing-md);
-    box-sizing: border-box;
-    overflow: hidden;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+    background-color: var(--background-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.light-theme {
+    --background-color: #ffffff;
+    --text-color: #333333;
+    --border-color: #e0e0e0;
+    --hover-color: #f5f5f5;
+}
+
+.dark-theme {
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --border-color: #333333;
+    --hover-color: #2a2a2a;
 }
 
 .slider {
     width: 100%;
-    min-height: 400px;
-    padding: var(--spacing-lg) 0;
-    overflow: hidden;
+    height: 100%;
 }
 
 .slide {
-    padding: var(--spacing-lg);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: auto;
-    min-height: 100%;
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
+    padding: 1rem;
+    color: var(--text-color);
 }
 
 .slide h3 {
-    font-size: 1.4rem;
-    color: var(--text-primary);
-    margin: 0;
-    text-align: center;
-    padding: var(--spacing-xs) var(--spacing-md);
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .weather-forecasts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-    gap: var(--spacing-xs);
-    width: 100%;
-    padding: 0;
-    margin-top: var(--spacing-md);
-    box-sizing: border-box;
-    overflow: hidden;
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 0.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.weather-forecasts::-webkit-scrollbar {
+    display: none;
 }
 
 .forecast-item {
-    background: var(--background-card);
-    padding: var(--spacing-xs);
-    border-radius: var(--border-radius-lg);
-    text-align: center;
-    border: 1px solid var(--border-light);
-    box-shadow: var(--shadow-card);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 140px;
-    box-sizing: border-box;
-    width: 100%;
-    overflow: hidden;
+    min-width: 100px;
+    max-width: 120px;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
 }
 
-.weather-icon {
-    width: 35px;
-    height: 35px;
-    margin: var(--spacing-xs) 0;
+.forecast-item:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
 }
 
 .time {
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: var(--text-primary);
-    margin-bottom: var(--spacing-xs);
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
 }
 
-.temperature {
-    font-size: 1rem;
-    color: var(--text-primary);
-    margin: var(--spacing-xs) 0;
-    padding: var(--spacing-xs);
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
+.weather-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0.5rem 0;
 }
 
 .description {
-    font-size: 0.7rem;
-    color: var(--text-secondary);
-    text-transform: capitalize;
-    margin: 0 0 var(--spacing-xs) ;
-    padding: var(--spacing-xs);
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
 }
 
-.swiper {
-    width: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
+.temperature {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
 }
 
-.swiper-wrapper {
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-.swiper-slide {
-    width: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-.swiper-pagination {
-    position: relative;
-    margin-top: var(--spacing-md);
-}
-
-.swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
-    background: var(--text-primary);
-    opacity: 0.5;
-    margin: 0 var(--spacing-xs);
-    transition: opacity 0.3s ease;
-    border-radius: 50%;
-}
-
-.swiper-pagination-bullet-active {
-    opacity: 1;
-}
-
-/* 태블릿 스타일 */
 @media (min-width: 768px) {
-    .slider {
-        min-height: 450px;
-    }
-
-    .slide h3 {
-        font-size: 1.6rem;
-        padding: var(--spacing-sm) var(--spacing-lg);
-    }
-
-    .weather-forecasts {
-        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-        gap: var(--spacing-sm);
-    }
-
     .forecast-item {
-        padding: var(--spacing-sm);
-        min-height: 160px;
+        min-width: 120px;
+        max-width: 140px;
     }
-
+    
     .weather-icon {
-        width: 45px;
-        height: 45px;
-        margin: var(--spacing-sm) 0;
-    }
-
-    .time {
-        font-size: 0.9rem;
-        margin-bottom: var(--spacing-sm);
-        padding: var(--spacing-sm);
-    }
-
-    .temperature {
-        font-size: 1.1rem;
-        margin: var(--spacing-sm) 0;
-        padding: var(--spacing-sm);
-    }
-
-    .description {
-        font-size: 0.8rem;
-        padding: var(--spacing-sm);
+        width: 60px;
+        height: 60px;
     }
 }
 
-/* 데스크톱 스타일 */
 @media (min-width: 1024px) {
-    .slider {
-        min-height: 500px;
-    }
-
-    .slide h3 {
-        font-size: 1.8rem;
-        padding: var(--spacing-md) var(--spacing-xl);
-    }
-
-    .weather-forecasts {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    }
-
     .forecast-item {
-        padding: var(--spacing-md);
-        min-height: 180px;
+        min-width: 140px;
+        max-width: 160px;
     }
-
+    
     .weather-icon {
-        width: 50px;
-        height: 50px;
-        margin: var(--spacing-md) 0;
-    }
-
-    .time {
-        font-size: 1rem;
-        margin-bottom: var(--spacing-md);
-        padding: var(--spacing-md);
-    }
-
-    .temperature {
-        font-size: 1.2rem;
-        margin: var(--spacing-md) 0;
-        padding: var(--spacing-md);
-    }
-
-    .description {
-        font-size: 0.9rem;
-        padding: var(--spacing-md);
+        width: 70px;
+        height: 70px;
     }
 } 

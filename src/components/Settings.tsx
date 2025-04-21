@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
-import { RadioGroup, RadioOption } from '../index.style.ts';
+import React, { useState, useEffect } from 'react';
 import styles from './Settings.module.css';
 
 interface SettingsProps {
-    themeMode: "system" | "light" | "dark";
-    onThemeChange: (theme: "system" | "light" | "dark") => void;
+    onThemeChange: (theme: 'system' | 'light' | 'dark') => void;
+    themeMode: 'system' | 'light' | 'dark';
 }
 
-const Settings: React.FC<SettingsProps> = ({ themeMode, onThemeChange }) => {
+const Settings: React.FC<SettingsProps> = ({ onThemeChange, themeMode }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onThemeChange(e.target.value as "system" | "light" | "dark");
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as HTMLElement;
+            if (!target.closest(`.${styles.settings}`)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, []);
+
+    const handleThemeChange = (theme: 'system' | 'light' | 'dark') => {
+        onThemeChange(theme);
+        setIsOpen(false);
     };
 
     return (
-        <div className={styles.settings}>
-            <button 
+        <div className={`${styles.settings} ${styles[`${themeMode}-theme`]}`}>
+            <button
                 className={styles.settingsButton}
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Settings"
@@ -33,44 +45,38 @@ const Settings: React.FC<SettingsProps> = ({ themeMode, onThemeChange }) => {
                 </svg>
             </button>
             {isOpen && (
-                <div className={styles.popup}>
-                    <div className={styles.popupContent}>
-                        <h3 className={styles.popupTitle}>Settings</h3>
-                        <RadioGroup>
-                            <RadioOption>
-                                <input
-                                    type="radio"
-                                    id="system"
-                                    name="theme"
-                                    value="system"
-                                    checked={themeMode === "system"}
-                                    onChange={handleThemeChange}
-                                />
-                                <label htmlFor="system">System Mode</label>
-                            </RadioOption>
-                            <RadioOption>
-                                <input
-                                    type="radio"
-                                    id="light"
-                                    name="theme"
-                                    value="light"
-                                    checked={themeMode === "light"}
-                                    onChange={handleThemeChange}
-                                />
-                                <label htmlFor="light">Light Mode</label>
-                            </RadioOption>
-                            <RadioOption>
-                                <input
-                                    type="radio"
-                                    id="dark"
-                                    name="theme"
-                                    value="dark"
-                                    checked={themeMode === "dark"}
-                                    onChange={handleThemeChange}
-                                />
-                                <label htmlFor="dark">Dark Mode</label>
-                            </RadioOption>
-                        </RadioGroup>
+                <div className={styles.settingsPopup}>
+                    <div className={styles.themeOptions}>
+                        <div className={styles.themeOption}>
+                            <input
+                                type="radio"
+                                id="system"
+                                name="theme"
+                                checked={themeMode === 'system'}
+                                onChange={() => handleThemeChange('system')}
+                            />
+                            <label htmlFor="system">시스템 테마</label>
+                        </div>
+                        <div className={styles.themeOption}>
+                            <input
+                                type="radio"
+                                id="light"
+                                name="theme"
+                                checked={themeMode === 'light'}
+                                onChange={() => handleThemeChange('light')}
+                            />
+                            <label htmlFor="light">라이트 테마</label>
+                        </div>
+                        <div className={styles.themeOption}>
+                            <input
+                                type="radio"
+                                id="dark"
+                                name="theme"
+                                checked={themeMode === 'dark'}
+                                onChange={() => handleThemeChange('dark')}
+                            />
+                            <label htmlFor="dark">다크 테마</label>
+                        </div>
                     </div>
                 </div>
             )}
