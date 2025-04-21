@@ -23,9 +23,25 @@ interface WeatherData {
   }[];
 }
 
+interface ForecastData {
+  list: {
+    dt_txt: string;
+    main: {
+      temp: number;
+    };
+    weather: {
+      main: string;
+      description: string;
+      icon: string;
+    }[];
+  }[];
+}
+
 function App() {
   const [location, setLocation] = useState<string>(''); // 사용자 입력 도시
   const [result, setResult] = useState<WeatherData | null>(null); // 날씨 데이터
+  const [forecast, setForecast] = useState<ForecastData | null>(null); // 예보 데이터
+  const [isLoading, setIsLoading] = useState<boolean>(false); // 로딩 상태
   const [themeMode, setThemeMode] = useState<"system" | "light" | "dark">(
       "system"
   );
@@ -33,19 +49,27 @@ function App() {
   const API_KEY = '8599852cc989e43376dedb400a31ca61';
 
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}`;
-
+  const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${API_KEY}&units=metric`;
 
   const fetchWeatherData = async () => {
     if (!location.trim()) {
       alert("도시 이름을 입력하세요.");
       return;
     }
+    setIsLoading(true);
+    setResult(null);
+    setForecast(null);
     try {
-      const { data } = await axios.get<WeatherData>(url);
-      console.log(data);
-      setResult(data);
+      const [weatherResponse, forecastResponse] = await Promise.all([
+        axios.get<WeatherData>(url),
+        axios.get<ForecastData>(forecastUrl)
+      ]);
+      setResult(weatherResponse.data);
+      setForecast(forecastResponse.data);
     } catch (err) {
       alert("날씨 데이터를 가져오는 데 실패했습니다.\n도시명을 영문으로 입력해주세요.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -62,20 +86,31 @@ function App() {
       return;
     }
 
+    setIsLoading(true);
+    setResult(null);
+    setForecast(null);
+
     navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
           const geoUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+          const geoForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
 
           try {
-            const { data } = await axios.get<WeatherData>(geoUrl);
-            console.log(data);
-            setResult(data);
+            const [weatherResponse, forecastResponse] = await Promise.all([
+              axios.get<WeatherData>(geoUrl),
+              axios.get<ForecastData>(geoForecastUrl)
+            ]);
+            setResult(weatherResponse.data);
+            setForecast(forecastResponse.data);
           } catch (err) {
             alert("현재 위치의 날씨 데이터를 가져오는 데 실패했습니다.");
+          } finally {
+            setIsLoading(false);
           }
         },
         (error) => {
+          setIsLoading(false);
           switch (error.code) {
             case error.PERMISSION_DENIED:
               alert("위치 정보 접근이 거부되었습니다.");
@@ -139,7 +174,11 @@ function App() {
           )}
         </InputWrap>
         <Button onClick={fetchWeatherByLocation}>현재 위치의 날씨</Button>
-        {result && (
+        {isLoading ? (
+          <div className={styles['loading-spinner']}>
+            <div className={styles['spinner']}></div>
+          </div>
+        ) : result && forecast && (
             <Fragment>
               <div className={styles['weather-card']}>
                 <img 
@@ -153,7 +192,11 @@ function App() {
                 </div>
                 <div className={styles['sky']}>{result.weather[0].main}</div>
               </div>
-              <WeatherSlider theme={isDarkMode ? "dark" : "light"}/>
+              <WeatherSlider 
+                theme={isDarkMode ? "dark" : "light"}
+                city={result.name}
+                weatherData={forecast}
+              />
             </Fragment>
         )}
       </AppWrapper>
