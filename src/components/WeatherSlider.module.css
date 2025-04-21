@@ -67,18 +67,30 @@
     overflow-x: auto;
     gap: 1rem;
     padding: 0.5rem;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    scrollbar-width: auto;
+    scrollbar-color: var(--border-color) var(--background-color);
 }
 
 .weather-forecasts::-webkit-scrollbar {
-    display: none;
+    height: 12px;
+    background-color: var(--background-color);
+}
+
+.weather-forecasts::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 6px;
+    border: 2px solid var(--background-color);
+}
+
+.weather-forecasts::-webkit-scrollbar-track {
+    background-color: var(--background-color);
+    border-radius: 6px;
 }
 
 .forecast-item {
-    min-width: 100px;
-    max-width: 120px;
-    padding: 1rem;
+    min-width: 80px;
+    max-width: 90px;
+    padding: 0.8rem;
     border-radius: 8px;
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
@@ -117,8 +129,8 @@
 
 @media (min-width: 768px) {
     .forecast-item {
-        min-width: 120px;
-        max-width: 140px;
+        min-width: 100px;
+        max-width: 110px;
     }
     
     .weather-icon {
@@ -129,8 +141,8 @@
 
 @media (min-width: 1024px) {
     .forecast-item {
-        min-width: 140px;
-        max-width: 160px;
+        min-width: 120px;
+        max-width: 130px;
     }
     
     .weather-icon {

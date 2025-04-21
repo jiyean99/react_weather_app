@@ -169,6 +169,7 @@ const WeatherSlider: React.FC<WeatherSliderProps> = ({ theme, weatherData }) => 
         modules={[Navigation, Pagination]}
         spaceBetween={30}
         slidesPerView={1}
+        allowTouchMove={false}
         navigation
         pagination={{ clickable: true }}
         className={styles['slider']}
@@ -196,8 +197,8 @@ const WeatherSlider: React.FC<WeatherSliderProps> = ({ theme, weatherData }) => 
                       alt={item.weather[0].description}
                       className={styles['weather-icon']}
                     />
-                    <p className={styles['description']}>{item.weather[0].description}</p>
                     <p className={styles['temperature']}>{Math.round(item.main.temp)}°C</p>
+                    <p className={styles['description']}>{item.weather[0].description}</p>
                   </div>
                 ))}
               </div>
