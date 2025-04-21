@@ -3,14 +3,8 @@ import React, {Fragment, useEffect, useState} from "react";
 import {
   AppWrapper,
   Button,
-  City,
   Input,
   InputWrap,
-  RadioGroup,
-  RadioOption,
-  Sky,
-  Temperature,
-  WeatherCard
 } from "./index.style.ts";
 import {darkTheme, lightTheme} from "./theme/theme.ts";
 import {ThemeProvider} from "styled-components";
@@ -127,10 +121,6 @@ function App() {
       }
     }
   }, [themeMode]);
-
-  const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setThemeMode(e.target.value as "system" | "light" | "dark");
-  };
 
   return (
     <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
