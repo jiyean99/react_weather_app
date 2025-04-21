@@ -51,7 +51,7 @@ function App() {
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      fetchWeatherData();
+      await fetchWeatherData();
     }
   };
 
